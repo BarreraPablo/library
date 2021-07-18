@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Library.Data.Migrations
+namespace Library.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -15,22 +15,25 @@ namespace Library.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Library.Models.Author", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
+
+                    b.Property<short?>("CountryId1")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,17 +47,17 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryId1");
 
                     b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("Library.Models.Book", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long?>("AuthorId")
                         .HasColumnType("bigint");
@@ -62,8 +65,14 @@ namespace Library.Data.Migrations
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
+                    b.Property<short?>("CountryId1")
+                        .HasColumnType("smallint");
+
                     b.Property<int?>("GenreId")
                         .HasColumnType("int");
+
+                    b.Property<short?>("GenreId1")
+                        .HasColumnType("smallint");
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -80,9 +89,9 @@ namespace Library.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryId1");
 
-                    b.HasIndex("GenreId");
+                    b.HasIndex("GenreId1");
 
                     b.HasIndex("LanguageId");
 
@@ -93,10 +102,10 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Borrowing", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("BookId")
                         .HasColumnType("bigint");
@@ -129,10 +138,10 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Client", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -151,10 +160,10 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Country", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<short?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasColumnType("smallint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -168,10 +177,10 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Genre", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<short?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasColumnType("smallint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -185,10 +194,10 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.HistoryBorrowing", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("BorrowingId")
                         .HasColumnType("bigint");
@@ -213,10 +222,10 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Language", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -230,13 +239,16 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Publisher", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
+
+                    b.Property<short?>("CountryId1")
+                        .HasColumnType("smallint");
 
                     b.Property<short?>("Foundation")
                         .HasColumnType("smallint");
@@ -251,7 +263,7 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryId1");
 
                     b.ToTable("Publishers");
                 });
@@ -353,7 +365,7 @@ namespace Library.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -377,7 +389,7 @@ namespace Library.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -460,7 +472,7 @@ namespace Library.Data.Migrations
                 {
                     b.HasOne("Library.Models.Country", null)
                         .WithMany("Authors")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId1");
                 });
 
             modelBuilder.Entity("Library.Models.Book", b =>
@@ -471,11 +483,11 @@ namespace Library.Data.Migrations
 
                     b.HasOne("Library.Models.Country", "Country")
                         .WithMany("Books")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId1");
 
                     b.HasOne("Library.Models.Genre", "Genre")
                         .WithMany("Books")
-                        .HasForeignKey("GenreId");
+                        .HasForeignKey("GenreId1");
 
                     b.HasOne("Library.Models.Language", "Language")
                         .WithMany("Books")
@@ -538,7 +550,7 @@ namespace Library.Data.Migrations
                 {
                     b.HasOne("Library.Models.Country", null)
                         .WithMany("Publishers")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
