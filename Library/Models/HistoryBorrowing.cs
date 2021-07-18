@@ -1,13 +1,14 @@
 ﻿using Library.Enumerations;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Models
 {
     public class HistoryBorrowing
     {
         [Key]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         public BorrowingStatus Status { get; set; }

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Models
 {
     public class Genre
     {
         [Key]
-        public UInt16 Id { get; set; }
+        [Column(TypeName = "smallint")]
+        public Int16? Id { get; set; }
 
         [Required]
         [MaxLength(30)]

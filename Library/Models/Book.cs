@@ -6,7 +6,7 @@ namespace Library.Models
     public class Book
     {
         [Key]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         [MaxLength(50)]

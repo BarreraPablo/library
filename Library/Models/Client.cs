@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Models
 {
     public class Client
     {
         [Key]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         [MaxLength(25)]
