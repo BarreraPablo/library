@@ -24,7 +24,12 @@ namespace Library.Models
         [Required]
         public long ClientId { get; set; }
         public User User { get; set; }
-        public long? UserId { get; set; }
+        public string UserId { get; set; }
+
+        public Book Book { get; set; }
+
+        [Required]
+        public long BookId { get; set; }
 
         public IEnumerable<HistoryBorrowing> HistoryBorrowings { get; set; }
     }
