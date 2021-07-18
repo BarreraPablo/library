@@ -4,14 +4,16 @@ using Library.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210718195714_CorrectUserIdDataType")]
+    partial class CorrectUserIdDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,9 +100,6 @@ namespace Library.Data.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long>("BookId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("ClientId")
                         .HasColumnType("bigint");
 
@@ -117,8 +116,6 @@ namespace Library.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.HasIndex("ClientId");
 
@@ -500,12 +497,6 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Borrowing", b =>
                 {
-                    b.HasOne("Library.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Library.Models.Client", "Client")
                         .WithMany("Borrowings")
                         .HasForeignKey("ClientId")
@@ -515,8 +506,6 @@ namespace Library.Data.Migrations
                     b.HasOne("Library.Models.User", "User")
                         .WithMany("Borrowings")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Book");
 
                     b.Navigation("Client");
 
